@@ -9,6 +9,7 @@ const json = require('@rollup/plugin-json');
 const resolve = require('@rollup/plugin-node-resolve').default;
 const terser = require('rollup-plugin-terser').terser;
 const pkg = require('./package.json');
+const dts = require('rollup-plugin-dts').default;
 
 const input = 'src/index.js';
 const inputESM = {
@@ -94,5 +95,14 @@ module.exports = [
 			format: 'esm',
 			indent: false,
 		},
-	}
+	},
+	// Type definitions
+	{
+		input: "src/index.d.ts",
+		output: {
+			file: "dist/chart.d.ts",
+			format: "es",
+		},
+		plugins: [dts()],
+	},
 ];
